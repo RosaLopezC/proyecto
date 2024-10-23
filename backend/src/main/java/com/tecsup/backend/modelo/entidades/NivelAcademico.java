@@ -8,7 +8,7 @@ public class NivelAcademico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column
     private String nombre;
 
     public NivelAcademico() {
@@ -37,9 +37,9 @@ public class NivelAcademico {
 
     @Override
     public String toString() {
-        return "Curso{" +
+        return "NivelAcademico{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
+                ", nombre='" + nombre +
                 '}';
     }
 }

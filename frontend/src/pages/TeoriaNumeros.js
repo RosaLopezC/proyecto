@@ -4,60 +4,76 @@ import '../styles/Teoria.css';
 
 function TeoriaNumeros() {
     const [juegoIniciado, setJuegoIniciado] = useState(false);
+    const [preguntaActual, setPreguntaActual] = useState(0);
     const [respuestaCorrecta, setRespuestaCorrecta] = useState(false);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
+    // Preguntas del juego
+    const preguntas = [
+        {
+            pregunta: "¿Cuántas manzanas ves aquí?",
+            imagen: "🍎 🍎 🍎 🍎",
+            opciones: [2, 3, 4],
+            respuesta: 4
+        },
+        {
+            pregunta: "¿Cuántos gatos ves aquí?",
+            imagen: "🐱 🐱 🐱",
+            opciones: [3, 4, 5],
+            respuesta: 3
+        },
+        {
+            pregunta: "¿Cuántos globos ves aquí?",
+            imagen: "🎈 🎈 🎈 🎈 🎈",
+            opciones: [4, 5, 6],
+            respuesta: 5
+        }
+    ];
+
     const iniciarJuego = () => {
         setJuegoIniciado(true);
+        setPreguntaActual(0);
         setRespuestaCorrecta(false);
         setOpcionSeleccionada(null);
     };
 
     const verificarRespuesta = (opcion) => {
-        const correcta = 3; // Número correcto de elementos en el ejemplo
+        const correcta = preguntas[preguntaActual].respuesta;
         setOpcionSeleccionada(opcion);
         setRespuestaCorrecta(opcion === correcta);
     };
 
+    const siguientePregunta = () => {
+        setPreguntaActual((prev) => prev + 1);
+        setRespuestaCorrecta(false);
+        setOpcionSeleccionada(null);
+    };
+
     return (
         <div className="teoria-container">
-            <h2>¡Aprendamos los Números!</h2>
+            <h2>¡Aprendamos a Contar!</h2>
             <p className="intro-text">
-                <span className="highlight">Los números</span> son mágicos. Nos ayudan a contar nuestras cosas favoritas como juguetes, dulces y ¡mucho más! 🎉
+                Los <span className="highlight">números</span> nos ayudan a contar objetos. Contemos juntos algunos objetos y aprendamos los números.
             </p>
 
             <div className="teoria-content">
                 <p>
-                    <span role="img" aria-label="finger">👆</span> Empezaremos con <b>contar</b> los números del <span className="highlight">1 al 10</span>. Míralos bien y repítelos en voz alta:
-                </p>
-                <div className="numeros-container">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-                        <div key={num} className="numero-item">
-                            {num}
-                        </div>
-                    ))}
-                </div>
-                <p>
-                    ¡Muy bien! Ahora sabes contar hasta 10. Los números están por todos lados, y ahora puedes empezar a ver cuántas cosas tienes en tu casa o en el parque.
+                    Imagina que tienes algunas manzanas, ¿puedes contar cuántas hay? Los números nos dicen cuántos objetos hay en total.
                 </p>
             </div>
 
             <div className="juego-container">
-                <h3>Juego: ¿Cuántos objetos ves?</h3>
-                <p>Observa los objetos y selecciona la cantidad correcta.</p>
+                <h3>Juego: Contemos los objetos</h3>
                 {!juegoIniciado ? (
                     <button className="jugar-button" onClick={iniciarJuego}>
                         Jugar
                     </button>
                 ) : (
                     <div className="juego">
-                        <div className="objetos">
-                            <span role="img" aria-label="estrella">⭐</span>
-                            <span role="img" aria-label="estrella">⭐</span>
-                            <span role="img" aria-label="estrella">⭐</span>
-                        </div>
+                        <p>{preguntas[preguntaActual].pregunta}</p>
+                        <p className="imagen">{preguntas[preguntaActual].imagen}</p>
                         <div className="opciones">
-                            {[2, 3, 4].map((opcion) => (
+                            {preguntas[preguntaActual].opciones.map((opcion) => (
                                 <button
                                     key={opcion}
                                     className={`opcion-button ${opcionSeleccionada === opcion ? 'seleccionada' : ''}`}
@@ -71,6 +87,14 @@ function TeoriaNumeros() {
                             <p className={`resultado ${respuestaCorrecta ? 'correcto' : 'incorrecto'}`}>
                                 {respuestaCorrecta ? '¡Correcto! 🎉' : 'Intenta nuevamente 😅'}
                             </p>
+                        )}
+                        {respuestaCorrecta && preguntaActual < preguntas.length - 1 && (
+                            <button className="siguiente-button" onClick={siguientePregunta}>
+                                Siguiente
+                            </button>
+                        )}
+                        {respuestaCorrecta && preguntaActual === preguntas.length - 1 && (
+                            <p className="felicitaciones">¡Felicidades! Has completado el juego. 🎉</p>
                         )}
                     </div>
                 )}

@@ -4,48 +4,72 @@ import '../styles/Teoria.css';
 
 function TeoriaSecuencias() {
     const [juegoIniciado, setJuegoIniciado] = useState(false);
+    const [preguntaActual, setPreguntaActual] = useState(0);
     const [respuestaCorrecta, setRespuestaCorrecta] = useState(false);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
+    // Preguntas del juego
+    const preguntas = [
+        {
+            pregunta: "Observa la secuencia: 🌞 🌕 🌞 🌕 ¿Qué sigue?",
+            opciones: ["🌞", "🌕", "⭐"],
+            respuesta: "🌞"
+        },
+        {
+            pregunta: "Observa la secuencia: 🐶 🐱 🐶 🐱 ¿Qué sigue?",
+            opciones: ["🐶", "🐱", "🐭"],
+            respuesta: "🐶"
+        },
+        {
+            pregunta: "Observa la secuencia: 🍎 🍌 🍎 🍌 ¿Qué sigue?",
+            opciones: ["🍎", "🍌", "🍉"],
+            respuesta: "🍎"
+        }
+    ];
+
     const iniciarJuego = () => {
         setJuegoIniciado(true);
+        setPreguntaActual(0);
         setRespuestaCorrecta(false);
         setOpcionSeleccionada(null);
     };
 
     const verificarRespuesta = (opcion) => {
-        const correcta = "🌕"; // Respuesta correcta para la secuencia
+        const correcta = preguntas[preguntaActual].respuesta;
         setOpcionSeleccionada(opcion);
         setRespuestaCorrecta(opcion === correcta);
+    };
+
+    const siguientePregunta = () => {
+        setPreguntaActual((prev) => prev + 1);
+        setRespuestaCorrecta(false);
+        setOpcionSeleccionada(null);
     };
 
     return (
         <div className="teoria-container">
             <h2>¡Aprendamos sobre Secuencias!</h2>
             <p className="intro-text">
-                Una <span className="highlight">secuencia</span> es un orden en el que ocurren las cosas. Por ejemplo, al ponerte los zapatos, primero te pones uno y luego el otro. ¡Vamos a ver un ejemplo divertido! 🌟
+                Una <span className="highlight">secuencia</span> es un patrón que se repite. Observa cómo se repiten las cosas, como el día y la noche. ¡Vamos a ver algunos ejemplos!
             </p>
 
             <div className="teoria-content">
                 <p>
-                    Aquí tienes una secuencia: <span role="img" aria-label="sun">🌞</span> <span role="img" aria-label="moon">🌕</span> <span role="img" aria-label="sun">🌞</span> <span role="img" aria-label="moon">🌕</span>. ¿Qué sigue después?
+                    Mira esta secuencia: 🌞 🌕 🌞 🌕. Primero está el sol, luego la luna, y se repite. La secuencia sigue un <b>patrón</b>.
                 </p>
             </div>
 
             <div className="juego-container">
-                <h3>Juego: ¿Qué sigue en esta secuencia?</h3>
-                <p>Selecciona la imagen correcta para continuar la secuencia.</p>
+                <h3>Juego: ¿Qué sigue en la secuencia?</h3>
                 {!juegoIniciado ? (
                     <button className="jugar-button" onClick={iniciarJuego}>
                         Jugar
                     </button>
                 ) : (
                     <div className="juego">
-                        <div className="pregunta">
-                            <span role="img" aria-label="sun">🌞</span> <span role="img" aria-label="moon">🌕</span> <span role="img" aria-label="sun">🌞</span> <span role="img" aria-label="moon">🌕</span> <span>?</span>
-                        </div>
+                        <p>{preguntas[preguntaActual].pregunta}</p>
                         <div className="opciones">
-                            {["🌞", "🌕", "⭐"].map((opcion) => (
+                            {preguntas[preguntaActual].opciones.map((opcion) => (
                                 <button
                                     key={opcion}
                                     className={`opcion-button ${opcionSeleccionada === opcion ? 'seleccionada' : ''}`}
@@ -59,6 +83,14 @@ function TeoriaSecuencias() {
                             <p className={`resultado ${respuestaCorrecta ? 'correcto' : 'incorrecto'}`}>
                                 {respuestaCorrecta ? '¡Correcto! 🎉' : 'Intenta nuevamente 😅'}
                             </p>
+                        )}
+                        {respuestaCorrecta && preguntaActual < preguntas.length - 1 && (
+                            <button className="siguiente-button" onClick={siguientePregunta}>
+                                Siguiente
+                            </button>
+                        )}
+                        {respuestaCorrecta && preguntaActual === preguntas.length - 1 && (
+                            <p className="felicitaciones">¡Felicidades! Has completado el juego. 🎉</p>
                         )}
                     </div>
                 )}

@@ -4,58 +4,80 @@ import '../styles/Teoria.css';
 
 function TeoriaSumasRestas() {
     const [juegoIniciado, setJuegoIniciado] = useState(false);
+    const [preguntaActual, setPreguntaActual] = useState(0);
     const [respuestaCorrecta, setRespuestaCorrecta] = useState(false);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
+    // Preguntas del juego
+    const preguntas = [
+        {
+            pregunta: "Si tienes 2 manzanas y te dan 3 más, ¿cuántas tienes en total?",
+            opciones: [4, 5, 6],
+            respuesta: 5
+        },
+        {
+            pregunta: "Si tienes 5 caramelos y comes 2, ¿cuántos te quedan?",
+            opciones: [2, 3, 4],
+            respuesta: 3
+        },
+        {
+            pregunta: "Si ves 4 pajaritos y luego llegan 2 más, ¿cuántos pajaritos hay ahora?",
+            opciones: [6, 5, 7],
+            respuesta: 6
+        }
+    ];
+
     const iniciarJuego = () => {
         setJuegoIniciado(true);
+        setPreguntaActual(0);
         setRespuestaCorrecta(false);
         setOpcionSeleccionada(null);
     };
 
     const verificarRespuesta = (opcion) => {
-        const correcta = 5; // Resultado correcto de la suma
+        const correcta = preguntas[preguntaActual].respuesta;
         setOpcionSeleccionada(opcion);
         setRespuestaCorrecta(opcion === correcta);
+    };
+
+    const siguientePregunta = () => {
+        setPreguntaActual((prev) => prev + 1);
+        setRespuestaCorrecta(false);
+        setOpcionSeleccionada(null);
     };
 
     return (
         <div className="teoria-container">
             <h2>¡Aprendamos a Sumar y Restar!</h2>
             <p className="intro-text">
-                <span className="highlight">Sumar</span> y <span className="highlight">Restar</span> es muy divertido. Sumar significa juntar cosas y restar significa quitar cosas. ¡Vamos a aprender con algunos ejemplos! 🌟
+                La <span className="highlight">suma</span> nos ayuda a juntar cosas, y la <span className="highlight">resta</span> nos ayuda a quitar cosas. ¡Vamos a ver algunos ejemplos!
             </p>
 
             <div className="teoria-content">
+                <h3>¿Qué es Sumar?</h3>
                 <p>
-                    <span role="img" aria-label="plus">➕</span> <b>Sumar</b> significa <span className="highlight">agregar</span>. Por ejemplo, si tienes 2 manzanas y te dan 3 más, ¡ahora tienes <span className="highlight">5 manzanas</span> en total!
+                    Imagina que tienes 2 juguetes y te regalan 1 más. Ahora tienes 3 juguetes. 
+                    <span className="highlight">Sumar</span> es juntar cosas.
                 </p>
-                <div className="ejemplo">
-                    <span role="img" aria-label="apple">🍎🍎</span> + <span role="img" aria-label="apple">🍎🍎🍎</span> = <span className="highlight">🍎🍎🍎🍎🍎</span>
-                </div>
 
+                <h3>¿Qué es Restar?</h3>
                 <p>
-                    <span role="img" aria-label="minus">➖</span> <b>Restar</b> significa <span className="highlight">quitar</span>. Si tienes 5 galletas y te comes 2, te quedan <span className="highlight">3 galletas</span> para después.
+                    Imagina que tienes 4 caramelos y te comes 2. Ahora tienes 2 caramelos. 
+                    <span className="highlight">Restar</span> es quitar cosas.
                 </p>
-                <div className="ejemplo">
-                    <span role="img" aria-label="cookie">🍪🍪🍪🍪🍪</span> - <span role="img" aria-label="cookie">🍪🍪</span> = <span className="highlight">🍪🍪🍪</span>
-                </div>
             </div>
 
             <div className="juego-container">
-                <h3>Juego: ¿Cuánto es 2 + 3?</h3>
-                <p>Selecciona la respuesta correcta.</p>
+                <h3>Juego: Practica Sumas y Restas</h3>
                 {!juegoIniciado ? (
                     <button className="jugar-button" onClick={iniciarJuego}>
                         Jugar
                     </button>
                 ) : (
                     <div className="juego">
-                        <div className="pregunta">
-                            <span role="img" aria-label="apple">🍎🍎</span> + <span role="img" aria-label="apple">🍎🍎🍎</span> = ?
-                        </div>
+                        <p>{preguntas[preguntaActual].pregunta}</p>
                         <div className="opciones">
-                            {[4, 5, 6].map((opcion) => (
+                            {preguntas[preguntaActual].opciones.map((opcion) => (
                                 <button
                                     key={opcion}
                                     className={`opcion-button ${opcionSeleccionada === opcion ? 'seleccionada' : ''}`}
@@ -69,6 +91,14 @@ function TeoriaSumasRestas() {
                             <p className={`resultado ${respuestaCorrecta ? 'correcto' : 'incorrecto'}`}>
                                 {respuestaCorrecta ? '¡Correcto! 🎉' : 'Intenta nuevamente 😅'}
                             </p>
+                        )}
+                        {respuestaCorrecta && preguntaActual < preguntas.length - 1 && (
+                            <button className="siguiente-button" onClick={siguientePregunta}>
+                                Siguiente
+                            </button>
+                        )}
+                        {respuestaCorrecta && preguntaActual === preguntas.length - 1 && (
+                            <p className="felicitaciones">¡Felicidades! Has completado el juego. 🎉</p>
                         )}
                     </div>
                 )}

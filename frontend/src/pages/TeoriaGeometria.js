@@ -4,54 +4,74 @@ import '../styles/Teoria.css';
 
 function TeoriaGeometria() {
     const [juegoIniciado, setJuegoIniciado] = useState(false);
+    const [preguntaActual, setPreguntaActual] = useState(0);
     const [respuestaCorrecta, setRespuestaCorrecta] = useState(false);
     const [opcionSeleccionada, setOpcionSeleccionada] = useState(null);
 
+    // Preguntas del juego
+    const preguntas = [
+        {
+            pregunta: "¿Cuál de estas figuras es un triángulo?",
+            opciones: ["🔺", "🟪", "⚪"],
+            respuesta: "🔺"
+        },
+        {
+            pregunta: "¿Cuál de estas figuras es un círculo?",
+            opciones: ["🟥", "🔵", "🔶"],
+            respuesta: "🔵"
+        },
+        {
+            pregunta: "¿Cuál de estas figuras es un cuadrado?",
+            opciones: ["🟦", "🔴", "🔷"],
+            respuesta: "🟦"
+        }
+    ];
+
     const iniciarJuego = () => {
         setJuegoIniciado(true);
+        setPreguntaActual(0);
         setRespuestaCorrecta(false);
         setOpcionSeleccionada(null);
     };
 
     const verificarRespuesta = (opcion) => {
-        const correcta = "🔺"; // Respuesta correcta para el juego de figuras
+        const correcta = preguntas[preguntaActual].respuesta;
         setOpcionSeleccionada(opcion);
         setRespuestaCorrecta(opcion === correcta);
+    };
+
+    const siguientePregunta = () => {
+        setPreguntaActual((prev) => prev + 1);
+        setRespuestaCorrecta(false);
+        setOpcionSeleccionada(null);
     };
 
     return (
         <div className="teoria-container">
             <h2>¡Aprendamos sobre Figuras Geométricas!</h2>
             <p className="intro-text">
-                Las <span className="highlight">figuras geométricas</span> están en todas partes. Hay triángulos, cuadrados, círculos y más. ¡Mira estos ejemplos y diviértete identificando figuras! 🌟
+                Las <span className="highlight">figuras geométricas</span> están por todas partes. Hay triángulos, círculos, cuadrados y muchas más. ¡Descubrámoslas juntas!
             </p>
 
             <div className="teoria-content">
                 <p>
-                    <span className="highlight">Triángulo</span>: Una figura con <b>3 lados</b> y se ve como una montaña. 
-                </p>
-                <p className="ejemplo">
-                    <span role="img" aria-label="triangle">🔺</span>
-                </p>
-                <p>
-                    <span className="highlight">Cuadrado</span>: Una figura con <b>4 lados iguales</b>. Es como una caja.
-                </p>
-                <p className="ejemplo">
-                    <span role="img" aria-label="square">🟪</span>
+                    Un <b>triángulo</b> tiene 3 lados: 🔺 <br />
+                    Un <b>círculo</b> es redondo: 🔵 <br />
+                    Un <b>cuadrado</b> tiene 4 lados iguales: 🟦
                 </p>
             </div>
 
             <div className="juego-container">
-                <h3>Juego: ¿Cuál es el triángulo?</h3>
-                <p>Selecciona el triángulo de las opciones.</p>
+                <h3>Juego: Identifica la figura correcta</h3>
                 {!juegoIniciado ? (
                     <button className="jugar-button" onClick={iniciarJuego}>
                         Jugar
                     </button>
                 ) : (
                     <div className="juego">
+                        <p>{preguntas[preguntaActual].pregunta}</p>
                         <div className="opciones">
-                            {["🔺", "🟪", "⚪"].map((opcion) => (
+                            {preguntas[preguntaActual].opciones.map((opcion) => (
                                 <button
                                     key={opcion}
                                     className={`opcion-button ${opcionSeleccionada === opcion ? 'seleccionada' : ''}`}
@@ -65,6 +85,14 @@ function TeoriaGeometria() {
                             <p className={`resultado ${respuestaCorrecta ? 'correcto' : 'incorrecto'}`}>
                                 {respuestaCorrecta ? '¡Correcto! 🎉' : 'Intenta nuevamente 😅'}
                             </p>
+                        )}
+                        {respuestaCorrecta && preguntaActual < preguntas.length - 1 && (
+                            <button className="siguiente-button" onClick={siguientePregunta}>
+                                Siguiente
+                            </button>
+                        )}
+                        {respuestaCorrecta && preguntaActual === preguntas.length - 1 && (
+                            <p className="felicitaciones">¡Felicidades! Has completado el juego. 🎉</p>
                         )}
                     </div>
                 )}

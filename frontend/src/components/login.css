@@ -1,8 +1,9 @@
 /* Fondo principal con degradado morado */
 .login-wrapper {
     display: flex;
-    flex-direction: column; /* Cambia la dirección a columna para alinear el logo arriba */
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     background: linear-gradient(135deg, #6a0dad, #cfa9f3);
     padding: 20px;
@@ -10,26 +11,28 @@
 
 /* Logo en la parte superior */
 .logo {
-    margin-bottom: 20px;
+    margin-bottom: -20px; /* Ajuste para acercar el logo al formulario */
 }
 
 .logo img {
-    width: 300px; /* Ajusta el tamaño del logo */
+    width: 200px; /* Ajusta el tamaño del logo */
+    max-width: 100%;
+    height: auto;
 }
 
 /* Contenedor principal */
 .login-container {
     display: flex;
     width: 800px;
-    height: 600px;
     background-color: #fff;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     border-radius: 15px;
     overflow: hidden;
     position: relative;
+    margin: auto;
 }
 
-/* Barra lateral con botones */
+/* Barra lateral con borde diagonal */
 .login-sidebar {
     width: 40%;
     background: linear-gradient(135deg, #8a2be2, #6a0dad);
@@ -37,11 +40,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0;
     color: #fff;
     position: relative;
+    clip-path: polygon(0 0, 100% 0, 805% 100%, 0 100%);
 }
 
+/* Botones de la barra lateral */
 .sidebar-button {
     width: 100%;
     padding: 15px 20px;

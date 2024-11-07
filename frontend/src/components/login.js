@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Login.css';
 import { FaGoogle, FaEnvelope, FaLock, FaUser, FaCalendarAlt } from 'react-icons/fa';
 
 function Login() {
     const [isLogin, setIsLogin] = useState(true);
+    const navigate = useNavigate();
+
+    const handleLogin = () => {
+        // Aquí puedes agregar la lógica de autenticación
+        navigate('/menu'); // Redirige al menú después de iniciar sesión
+    };
 
     return (
         <div className="login-wrapper">
-            {/* Logo en la parte superior, fuera del recuadro */}
-            <div className="logo">
-                <img src="/logi.png" alt="Logo" />
-            </div>
-
             <div className="login-container">
                 <div className="login-sidebar">
                     <button 
@@ -26,10 +28,12 @@ function Login() {
                     </button>
                 </div>
                 <div className="login-form">
+                    <div className="logo">
+                        <img src="logi.png" alt="Logo" />
+                    </div>
                     <h2 className="login-title">{isLogin ? 'Iniciar Sesión' : 'Crear cuenta'}</h2>
                     
                     {isLogin ? (
-                        // Formulario de Iniciar Sesión
                         <>
                             <div className="input-group">
                                 <FaEnvelope className="icon" />
@@ -40,10 +44,9 @@ function Login() {
                                 <input type="password" placeholder="Contraseña" />
                             </div>
                             <a href="#" className="forgot-password">¿Olvidaste tu contraseña?</a>
-                            <button className="login-button">INICIAR SESIÓN</button>
+                            <button className="login-button" onClick={handleLogin}>INICIAR SESIÓN</button>
                         </>
                     ) : (
-                        // Formulario de Registro
                         <>
                             <div className="input-group">
                                 <FaUser className="icon" />

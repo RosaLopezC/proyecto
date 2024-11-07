@@ -10,7 +10,6 @@ public class Curso {
     private Long id;
     @Column
     private String titulo;
-    @Column
     @ManyToOne
     @JoinColumn(name = "grado_id", nullable = false)
     private Grado grado;

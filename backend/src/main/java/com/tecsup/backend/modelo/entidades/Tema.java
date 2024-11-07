@@ -10,7 +10,6 @@ public class Tema {
     private Long id;
     @Column
     private String titulo;
-    @Column
     @ManyToOne
     @JoinColumn(name = "curso_id", nullable = false)
     private Curso curso;

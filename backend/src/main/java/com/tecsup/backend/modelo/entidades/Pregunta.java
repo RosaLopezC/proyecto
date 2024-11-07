@@ -11,7 +11,6 @@ public class Pregunta {
     private Long id;
     @Column
     private String enunciado;
-    @Column
     @ManyToOne
     @JoinColumn(name = "leccion_id", nullable = false)
     private Leccion leccion;

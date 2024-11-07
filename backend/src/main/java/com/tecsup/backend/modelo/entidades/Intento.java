@@ -9,7 +9,6 @@ public class Intento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
     @ManyToOne
     @JoinColumn(name = "pregunta_id", nullable = false)
     private Pregunta pregunta;

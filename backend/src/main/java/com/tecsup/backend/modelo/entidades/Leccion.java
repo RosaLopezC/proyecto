@@ -14,11 +14,9 @@ public class Leccion {
     private String titulo;
     @Column
     private String descripcion;
-    @Column
     @ManyToOne
     @JoinColumn(name = "nivel_dificultad_id", nullable = false)
     private Dificultades nivelDificultad;
-    @Column
     @ManyToOne
     @JoinColumn(name = "tema_id", nullable = false)
     private Tema tema;

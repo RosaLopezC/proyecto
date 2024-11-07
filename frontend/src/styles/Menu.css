@@ -1,137 +1,94 @@
-/* Estilos para el menú principal */
-.menu {
+/* src/styles/Menu.css */
+
+/* Contenedor principal del menú */
+.menu-container {
     padding: 20px;
-    background: linear-gradient(135deg, #6a0dad, #cfa9f3);
+    background: linear-gradient(135deg, #8a2be2, #cfa9f3);
     min-height: 100vh;
-    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Encabezado del menú */
 .menu-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
-    background-color: #8a2be2;
-    border-radius: 8px;
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    background-color: #b650ff;
+    border-radius: 10px;
 }
 
 .menu-logo {
     width: 150px;
+    height: auto;
 }
 
-.search-container {
+.menu-levels {
     display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-input {
-    padding: 10px;
-    border-radius: 20px;
-    border: 1px solid #ccc;
-    outline: none;
-    width: 200px;
-    font-size: 16px;
-}
-
-.search-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #6a0dad;
-    color: #fff;
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 16px;
-}
-
-.levels {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
     gap: 15px;
 }
 
-.levels button {
-    background: #cfa9f3;
-    color: #6a0dad;
+.level-button {
     padding: 10px 20px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.levels button.active, .levels button:hover {
-    background: #8a2be2;
+    background-color: #8a2be2;
     color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
-.temas-container {
+.level-button:hover {
+    background-color: #6a0dad;
+}
+
+/* Barra de búsqueda */
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.search-container input[type="text"] {
+    padding: 10px;
+    width: 60%;
+    max-width: 400px;
+    border-radius: 20px;
+    border: 1px solid #ddd;
+    outline: none;
+    font-size: 14px;
+}
+
+.search-container button {
+    padding: 10px 20px;
+    margin-left: 10px;
+    background-color: #8a2be2;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.search-container button:hover {
+    background-color: #6a0dad;
+}
+
+/* Contenedor de tarjetas */
+.cards-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    margin-top: 30px;
     justify-content: center;
-}
-
-.tema-card {
-    width: 200px;
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    transition: transform 0.3s;
-    color: #6a0dad;
-}
-
-.tema-card:hover {
-    transform: scale(1.05);
-}
-
-.tema-img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-}
-
-.tema-content {
-    padding: 15px;
-}
-
-.tema-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-.explorar-button {
-    background: #8a2be2;
-    color: #fff;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 15px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.explorar-button:hover {
-    background: #6a0dad;
-}
-
-.logout-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #ff5e5e;
-    color: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-.logout-button:hover {
-    background-color: #ff4a4a;
+    max-width: 1200px;
+    margin-top: 20px;
 }

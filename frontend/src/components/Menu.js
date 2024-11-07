@@ -1,54 +1,41 @@
-import React, { useState } from 'react';
+// src/components/Menu.js
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Card from './Card';
 import '../styles/Menu.css';
 
 function Menu() {
-    const [selectedLevel, setSelectedLevel] = useState('INICIAL');
     const navigate = useNavigate();
 
-    const temasInicial = [
-        { id: 1, title: 'Juegos de Números', img: 'numeros.jpeg' },
-        { id: 2, title: 'Juegos de Sumas y Restas', img: 'sumas_restas.jpeg' },
-        { id: 3, title: 'Juegos de Secuencias', img: 'secuencias.jpeg' },
-        { id: 4, title: 'Juegos de Geometría', img: 'geometria.jpeg' },
-        { id: 5, title: 'Juegos de Fracciones', img: 'fraccion.jpeg' },
-        { id: 6, title: 'Juegos de División', img: 'division.jpeg' },
+    const temas = [
+        { titulo: 'Juegos de Números', imagen: require('../assets/numeros.jpeg'), ruta: '/teoria-numeros' },
+        { titulo: 'Juegos de Sumas y Restas', imagen: require('../assets/sumas_restas.jpeg'), ruta: '/teoria-sumas-restas' },
+        { titulo: 'Juegos de Secuencias', imagen: require('../assets/secuencias.jpeg'), ruta: '/teoria-secuencias' },
+        { titulo: 'Juegos de Geometría', imagen: require('../assets/geometria.jpeg'), ruta: '/teoria-geometria' },
+        { titulo: 'Juegos de Fracciones', imagen: require('../assets/fraccion.jpeg'), ruta: '/teoria-fracciones' },
+        { titulo: 'Juegos de División', imagen: require('../assets/division.jpeg'), ruta: '/teoria-division' },
     ];
 
-    const renderTemas = () => {
-        return temasInicial.map(tema => (
-            <div key={tema.id} className="tema-card">
-                <img src={tema.img} alt={tema.title} className="tema-img" />
-                <div className="tema-content">
-                    <p className="tema-title">{tema.title}</p>
-                    <button className="explorar-button">Explorar</button>
-                </div>
-            </div>
-        ));
-    };
-
-    const handleLogout = () => {
-        navigate('/'); // Redirige al login
-    };
-
     return (
-        <div className="menu">
+        <div className="menu-container">
             <header className="menu-header">
-                <img src="logo.png" alt="MathPlay" className="menu-logo" />
-                <div className="search-container">
-                    <input type="text" placeholder="Buscar..." className="search-input" />
-                    <button className="search-button">Buscar</button>
+                <img src={require('../assets/logo.png')} alt="MathPlay" className="menu-logo" />
+                <div className="menu-levels">
+                    <button className="level-button">INICIAL</button>
+                    <button className="level-button">PRIMARIA</button>
+                    <button className="level-button">SECUNDARIA</button>
                 </div>
-                <button onClick={handleLogout} className="logout-button">Cerrar Sesión</button>
             </header>
-            <nav className="levels">
-                <button className={selectedLevel === 'INICIAL' ? 'active' : ''} onClick={() => setSelectedLevel('INICIAL')}>Inicial</button>
-                <button className={selectedLevel === 'PRIMARIA' ? 'active' : ''} onClick={() => setSelectedLevel('PRIMARIA')}>Primaria</button>
-                <button className={selectedLevel === 'SECUNDARIA' ? 'active' : ''} onClick={() => setSelectedLevel('SECUNDARIA')}>Secundaria</button>
-            </nav>
-            <div className="temas-container">
-                {selectedLevel === 'INICIAL' && renderTemas()}
-                {/* Puedes agregar condiciones para mostrar los temas de PRIMARIA y SECUNDARIA */}
+
+            <div className="search-container">
+                <input type="text" placeholder="Buscar..." />
+                <button>Buscar</button>
+            </div>
+
+            <div className="cards-container">
+                {temas.map((tema, index) => (
+                    <Card key={index} titulo={tema.titulo} imagen={tema.imagen} onClick={() => navigate(tema.ruta)} />
+                ))}
             </div>
         </div>
     );

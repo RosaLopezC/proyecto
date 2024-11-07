@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Menu.css';
+import '../styles/Menu.css';
 
 function Menu() {
     const [selectedLevel, setSelectedLevel] = useState('INICIAL');

@@ -7,18 +7,18 @@ function Menu() {
     const navigate = useNavigate();
 
     const temas = [
-        { titulo: 'Juegos de Números', imagen: require('../assets/numeros.jpeg'), ruta: '/teoria-numeros' },
-        { titulo: 'Juegos de Sumas y Restas', imagen: require('../assets/sumas_restas.jpeg'), ruta: '/teoria-sumas-restas' },
-        { titulo: 'Juegos de Secuencias', imagen: require('../assets/secuencias.jpeg'), ruta: '/teoria-secuencias' },
-        { titulo: 'Juegos de Geometría', imagen: require('../assets/geometria.jpeg'), ruta: '/teoria-geometria' },
-        { titulo: 'Juegos de Fracciones', imagen: require('../assets/fraccion.jpeg'), ruta: '/teoria-fracciones' },
-        { titulo: 'Juegos de División', imagen: require('../assets/division.jpeg'), ruta: '/teoria-division' },
+        { titulo: 'Números', imagen: require('../assets/numeros.jpeg'), ruta: '/teoria-numeros' },
+        { titulo: 'Sumas y Restas', imagen: require('../assets/sumas_restas.jpeg'), ruta: '/teoria-sumas-restas' },
+        { titulo: 'Secuencias', imagen: require('../assets/secuencias.jpeg'), ruta: '/teoria-secuencias' },
+        { titulo: 'Geometría', imagen: require('../assets/geometria.jpeg'), ruta: '/teoria-geometria' },
+        { titulo: 'Fracciones', imagen: require('../assets/fraccion.jpeg'), ruta: '/teoria-fracciones' },
+        { titulo: 'División', imagen: require('../assets/division.jpeg'), ruta: '/teoria-division' },
     ];
 
     const temasVistos = [
-        { titulo: 'Juegos de Números', avance: '50%', puntos: '150' },
-        { titulo: 'Juegos de Sumas y Restas', avance: '75%', puntos: '200' },
-        { titulo: 'Juegos de Secuencias', avance: '25%', puntos: '50' },
+        { titulo: 'Números', avance: '50%', puntos: '150' },
+        { titulo: 'Sumas y Restas', avance: '75%', puntos: '200' },
+        { titulo: 'Secuencias', avance: '25%', puntos: '50' },
     ];
 
     const [activeLevel, setActiveLevel] = useState(null);
@@ -39,7 +39,7 @@ function Menu() {
         navigate('/');
     };
 
-    const userProfileImage = require('../assets/googlelogo.png'); // Imagen por defecto
+    const userProfileImage = require('../assets/iconde.png'); // Imagen por defecto
 
     return (
         <div className="menu-container">
@@ -63,19 +63,21 @@ function Menu() {
                         </div>
                     ))}
                 </div>
-                <div className="profile-container" onMouseEnter={() => setShowProfileMenu(true)} onMouseLeave={() => setShowProfileMenu(false)}>
-                    <img src={userProfileImage} alt="Profile" className="profile-icon" />
-                    {showProfileMenu && (
-                        <div className="profile-menu">
-                            <div className="profile-menu-item">Configuración</div>
-                            <div className="profile-menu-item">Puntaje</div>
-                            <div className="profile-menu-item">Medallas</div>
-                        </div>
-                    )}
+                <div className="profile-logout-container">
+                    <div className="profile-container" onMouseEnter={() => setShowProfileMenu(true)} onMouseLeave={() => setShowProfileMenu(false)}>
+                        <img src={userProfileImage} alt="Profile" className="profile-icon" />
+                        {showProfileMenu && (
+                            <div className="profile-menu">
+                                <div className="profile-menu-item">Mi Perfil</div>
+                                <div className="profile-menu-item">Puntaje</div>
+                                <div className="profile-menu-item">Medallas</div>
+                            </div>
+                        )}
+                    </div>
+                    <button className="logout-button" onClick={handleLogout}>
+                        Cerrar Sesión
+                    </button>
                 </div>
-                <button className="logout-button" onClick={handleLogout}>
-                    Cerrar Sesión
-                </button>
             </header>
 
             <div className="search-container">
@@ -90,10 +92,9 @@ function Menu() {
                     ))}
                 </div>
                 <div className="topics-viewed-container">
-                    <h3>AVANCES</h3>
+                    <h3>PROGRESO</h3>
                     {temasVistos.map((tema, index) => (
-                        <div key={index} className="topic-viewed-item">
-                            <div className={`topic-color-box topic-color-${index}`}></div>
+                        <div key={index} className={`topic-viewed-item topic-color-${index}`}>
                             <div className="topic-info">
                                 <div>{tema.titulo}</div>
                                 <div className="progress-box">Avance: {tema.avance} 🚀</div>

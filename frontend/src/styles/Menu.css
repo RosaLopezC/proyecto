@@ -141,6 +141,7 @@
     flex-direction: column;
     gap: 10px;
     max-width: 200px;
+    overflow-y: auto; /* Añade scroll si hay muchos elementos */
 }
 
 .topics-viewed-container h3 {
@@ -151,21 +152,17 @@
 }
 
 .topic-viewed-item {
+    padding: 10px;
+    border-radius: 10px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 10px;
     font-size: 14px;
 }
 
-.topic-color-box {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-}
-
-.topic-color-0 { background-color: #ff6347; }
-.topic-color-1 { background-color: #32cd32; }
-.topic-color-2 { background-color: #1e90ff; }
+.topic-color-0 { background-color: #ff634765; }
+.topic-color-1 { background-color: #32cd3265; }
+.topic-color-2 { background-color: #1e8fff65; }
 
 .topic-info {
     display: flex;
@@ -188,7 +185,13 @@
     background-color: #ffecd1;
 }
 
-/* Botón de cerrar sesión */
+/* Botón de cerrar sesión y contenedor de perfil */
+.profile-logout-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 .logout-button {
     padding: 10px 20px;
     background-color: #ff4d4d;
@@ -208,7 +211,6 @@
 .profile-container {
     position: relative;
     cursor: pointer;
-    margin-right: 10px;
 }
 
 .profile-icon {

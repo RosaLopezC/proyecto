@@ -121,3 +121,19 @@
     max-width: 1200px;
     margin-top: 20px;
 }
+
+/* Botón de cerrar sesión */
+.logout-button {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+}

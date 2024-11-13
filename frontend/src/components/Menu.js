@@ -24,7 +24,14 @@ function Menu() {
     const sublevels = {
         inicial: ['3 años', '4 años', '5 años'],
         primaria: ['1er grado', '2do grado', '3er grado', '4to grado', '5to grado', '6to grado'],
-        secundaria: ['1ro', '2do', '3ro', '4to', '5to'],
+        secundaria: ['1er grado', '2do grado', '3ro grado', '4to grado', '5to grado'],
+    };
+
+    const handleLogout = () => {
+        // Aquí puedes agregar la lógica para cerrar sesión
+        console.log('Cerrando sesión...');
+        // Por ejemplo, redirigir al usuario a la página de inicio de sesión
+        navigate('/');
     };
 
     return (
@@ -75,6 +82,9 @@ function Menu() {
                         )}
                     </div>
                 </div>
+                <button className="logout-button" onClick={handleLogout}>
+                    Cerrar Sesión
+                </button>
             </header>
 
             <div className="search-container">

@@ -49,7 +49,7 @@ function Login() {
                 </div>
                 <div className="login-form">
                     <div className="logo">
-                        <img src="logi.png" alt="Logo" />
+                        <img src="logo.png" alt="Logo" />
                     </div>
                     <h2 className="login-title">{isLogin ? 'Iniciar Sesión' : 'Crear cuenta'}</h2>
 

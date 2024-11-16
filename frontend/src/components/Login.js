@@ -10,6 +10,11 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    const handleGoogleLogin = () => {
+        // Redirige al endpoint de autenticación OAuth 2.0 en el backend
+        window.location.href = "http://localhost:8080/login/oauth2/code/google";
+    };
+
     const handleLogin = async () => {
         try {
             const response = await axios.post("http://localhost:8080/api/login", {
@@ -104,7 +109,7 @@ function Login() {
                     )}
 
                     <div className="social-login">
-                        <button className="social-button google">
+                        <button className="social-button google" onClick={handleGoogleLogin}>
                             <FaGoogle className="icon" /> Conectar con Google
                         </button>
                     </div>

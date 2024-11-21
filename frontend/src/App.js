@@ -9,6 +9,9 @@ import TeoriaFracciones from './pages/TeoriaFracciones';
 import TeoriaDivision from './pages/TeoriaDivision';
 import TableComponent from "./components/TableComponent";
 import RedirectHandler from "./components/RedirectHandler";
+import Profile from './components/Profile/Profile';
+import Scores from './components/Scores/Scores';
+import Medals from './components/Medals/Medals';
 
 function App() {
     return (
@@ -24,6 +27,9 @@ function App() {
                 <Route path="/teoria-geometria" element={<TeoriaGeometria />} />
                 <Route path="/teoria-fracciones" element={<TeoriaFracciones />} />
                 <Route path="/teoria-division" element={<TeoriaDivision />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="/scores" element={<Scores />} />
+                <Route path="/medals" element={<Medals />} />
             </Routes>
         </Router>
     );

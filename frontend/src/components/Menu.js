@@ -41,6 +41,18 @@ function Menu() {
 
     const userProfileImage = require('../assets/iconde.png'); // Imagen por defecto
 
+    const handleProfileClick = () => {
+        navigate('/profile');
+    };
+
+    const handleScoresClick = () => {
+        navigate('/scores');
+    };
+
+    const handleMedalsClick = () => {
+        navigate('/medals');
+    };
+
     return (
         <div className="menu-container">
             <header className="menu-header">
@@ -68,9 +80,9 @@ function Menu() {
                         <img src={userProfileImage} alt="Profile" className="profile-icon" />
                         {showProfileMenu && (
                             <div className="profile-menu">
-                                <div className="profile-menu-item">Mi Perfil</div>
-                                <div className="profile-menu-item">Puntaje</div>
-                                <div className="profile-menu-item">Medallas</div>
+                                <div className="profile-menu-item" onClick={handleProfileClick}>Mi Perfil</div>
+                                <div className="profile-menu-item" onClick={handleScoresClick}>Puntaje</div>
+                                <div className="profile-menu-item" onClick={handleMedalsClick}>Medallas</div>
                             </div>
                         )}
                     </div>

@@ -9,7 +9,8 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-
+    const [nombre, setNombre] = useState('');
+    const [fechaNacimiento, setFechaNacimiento] = useState('');
     const handleGoogleLogin = () => {
         // Redirige al endpoint de autenticación OAuth 2.0 en el backend
         window.location.href = "http://localhost:8080/login/oauth2/code/google";
@@ -33,9 +34,27 @@ function Login() {
         }
     };
 
-    const handleRegister = () => {
-        // Lógica de registro (puede implementarse después)
+    const handleRegister = async () => {
+        try {
+            const response = await axios.post("http://localhost:8080/api/auth/register", {
+                nombre: nombre,
+                email: email,
+                fechaNacimiento: fechaNacimiento, // Formato: YYYY-MM-DD
+                password: password
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+
+            alert("Usuario registrado exitosamente. Por favor, inicia sesión.");
+            setIsLogin(true); // Cambia a la vista de login después del registro.
+        } catch (error) {
+            console.error("Error al registrar el usuario:", error);
+            alert("Error al registrar el usuario. Verifica los datos ingresados.");
+        }
     };
+
 
     return (
         <div className="login-wrapper">
@@ -84,33 +103,48 @@ function Login() {
                     ) : (
                         <>
                             <div className="input-group">
-                                <FaUser className="icon" />
-                                <input type="text" placeholder="Nombre completo" />
+                                <FaUser className="icon"/>
+                                <input
+                                    type="text"
+                                    placeholder="Nombre completo"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                />
                             </div>
                             <div className="input-group">
-                                <FaCalendarAlt className="icon" />
-                                <input type="text" placeholder="Fecha de nacimiento (dd/mm/aaaa)" />
-                            </div>
-                            <p className="fecha-explicacion">
-                                Tener en cuenta tu edad te garantiza una experiencia adaptada en Matplay.
-                                Para más información, consulta nuestra
-                                <a href="#" className="registro-link"> Política de privacidad.</a>
-                            </p>
-                            <div className="input-group">
-                                <FaEnvelope className="icon" />
-                                <input type="email" placeholder="Correo electrónico" />
+                                <FaCalendarAlt className="icon"/>
+                                <input
+                                    type="date"
+                                    placeholder="Fecha de nacimiento"
+                                    value={fechaNacimiento}
+                                    onChange={(e) => setFechaNacimiento(e.target.value)}
+                                />
                             </div>
                             <div className="input-group">
-                                <FaLock className="icon" />
-                                <input type="password" placeholder="Contraseña" />
+                                <FaEnvelope className="icon"/>
+                                <input
+                                    type="email"
+                                    placeholder="Correo electrónico"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
                             </div>
-                            <button className="login-button" onClick={handleRegister}>CREAR CUENTA</button>
+                            <div className="input-group">
+                                <FaLock className="icon"/>
+                                <input
+                                    type="password"
+                                    placeholder="Contraseña"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                            </div>
+                            <button className="login-button" onClick={handleRegister}> CREAR CUENTA </button>
                         </>
                     )}
 
                     <div className="social-login">
                         <button className="social-button google" onClick={handleGoogleLogin}>
-                            <FaGoogle className="icon" /> Conectar con Google
+                            <FaGoogle className="icon"/> Conectar con Google
                         </button>
                     </div>
                 </div>

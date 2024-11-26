@@ -20,20 +20,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // Desactiva CSRF para evitar bloqueos en solicitudes sin autenticación
-                .cors().and() // Habilita CORS para manejar solicitudes preflight desde el frontend
+                .csrf().disable() // Desactiva CSRF para evitar bloqueos innecesarios
+                .cors().and() // Habilita CORS
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login**", "/api/auth/**").permitAll() // Permite el acceso público a estas rutas
+                        .requestMatchers("/", "/login**", "/oauth2/**", "/api/auth/**").permitAll() // Permite acceso sin autenticación
                         .anyRequest().authenticated() // Requiere autenticación para otras rutas
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(successHandler) // Usa el manejador personalizado para OAuth2
+                        .successHandler(successHandler) // Manejador personalizado para OAuth2
                 );
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Configura el encriptador de contraseñas
+        return new BCryptPasswordEncoder();
     }
 }

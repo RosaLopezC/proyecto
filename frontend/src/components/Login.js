@@ -12,13 +12,14 @@ function Login() {
     const [nombre, setNombre] = useState('');
     const [fechaNacimiento, setFechaNacimiento] = useState('');
     const handleGoogleLogin = () => {
-        // Redirige al endpoint de autenticación OAuth 2.0 en el backend
-        window.location.href = "http://localhost:8080/login/oauth2/code/google";
+        // Redirige al endpoint OAuth2 configurado en Spring Boot
+        window.location.href = "http://localhost:8080/oauth2/authorization/google";
     };
+
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post("http://localhost:8080/api/login", {
+            const response = await axios.post("http://localhost:8080/api/auth/login", {
                 username: email,
                 password: password
             });

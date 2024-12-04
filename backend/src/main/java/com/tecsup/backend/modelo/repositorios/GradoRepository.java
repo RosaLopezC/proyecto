@@ -1,8 +1,8 @@
 package com.tecsup.backend.modelo.repositorios;
-import com.tecsup.backend.modelo.entidades.Dificultades;
+import com.tecsup.backend.modelo.entidades.Grado;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DificultadesRepository extends JpaRepository<Dificultades, Long> {
+public interface GradoRepository extends JpaRepository<Grado, Long> {
 }

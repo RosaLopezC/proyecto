@@ -1,4 +1,4 @@
-package com.tecsup.backend.modelo.entidades;
+package com.tecsup.backend.security;
 public class JwtResponse {
 
     private String token;

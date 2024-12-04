@@ -1,6 +1,6 @@
 package com.tecsup.backend.controladores;
 
-import com.tecsup.backend.modelo.entidades.JwtResponse;
+import com.tecsup.backend.security.JwtResponse;
 import com.tecsup.backend.modelo.entidades.LoginRequest;
 import com.tecsup.backend.modelo.entidades.Usuario;
 import com.tecsup.backend.servicios.UsuarioService;

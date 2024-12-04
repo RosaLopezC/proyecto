@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .csrf().disable() // Desactiva CSRF para evitar bloqueos innecesarios
                 .cors().and() // Habilita CORS
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/login**", "/oauth2/**", "/api/auth/**").permitAll() // Permite acceso sin autenticación
+                        .requestMatchers("/", "/login**", "/oauth2/**", "/api/**").permitAll() // Permite acceso sin autenticación
                         .anyRequest().authenticated() // Requiere autenticación para otras rutas
                 )
                 .oauth2Login(oauth2 -> oauth2

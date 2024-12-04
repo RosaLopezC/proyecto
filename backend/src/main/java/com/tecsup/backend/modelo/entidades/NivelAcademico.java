@@ -1,9 +1,13 @@
 package com.tecsup.backend.modelo.entidades;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "nivelAcademico")
+@JsonSerialize
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class NivelAcademico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

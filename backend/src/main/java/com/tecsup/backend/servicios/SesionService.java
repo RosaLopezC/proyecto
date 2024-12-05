@@ -1,7 +1,8 @@
 package com.tecsup.backend.servicios;
 
-import com.tecsup.backend.modelo.entidades.Sesion;
 import com.tecsup.backend.modelo.entidades.Curso;
+import com.tecsup.backend.modelo.entidades.Sesion;
+import com.tecsup.backend.modelo.repositorios.CursoRepository;
 import com.tecsup.backend.modelo.repositorios.SesionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,46 +13,34 @@ import java.util.Optional;
 @Service
 public class SesionService {
 
-    private final SesionRepository sesionRepository;
-    private final CursoService cursoService;  // Suponiendo que tienes un servicio para manejar cursos
+    @Autowired
+    private SesionRepository sesionRepository;
 
     @Autowired
-    public SesionService(SesionRepository sesionRepository, CursoService cursoService) {
-        this.sesionRepository = sesionRepository;
-        this.cursoService = cursoService;
-    }
-
-    // Crear una sesión y calcular el puntaje
-    public Sesion crearSesion(String nombre, long tiempoEnMilisegundos, Long cursoId) {
-        // Obtener el curso por ID
-        Curso curso = cursoService.obtenerCursoPorId(cursoId);
-
-        // Verificar si el curso existe
-        if (curso == null) {
-            throw new IllegalArgumentException("Curso no encontrado");
-        }
-
-        // Calcular el puntaje basado en el tiempo
-        int puntaje = Sesion.calcularPuntaje(tiempoEnMilisegundos);
-
-        // Crear la sesión con el curso y puntaje
-        Sesion sesion = new Sesion(nombre, puntaje, curso);
-
-        // Guardar la sesión en la base de datos
-        return sesionRepository.save(sesion);
-    }
+    private CursoRepository cursoRepository;
 
     // Obtener todas las sesiones
     public List<Sesion> getAllSesiones() {
         return sesionRepository.findAll();
     }
 
-    // Obtener una sesión por id
+    // Obtener sesión por ID
     public Optional<Sesion> getSesionById(Long id) {
         return sesionRepository.findById(id);
     }
 
-    // Eliminar una sesión por id
+    // Crear nueva sesión
+    public Sesion crearSesion(String nombre, Long cursoId) {
+        // Buscar el curso al que se asociará la sesión
+        Curso curso = cursoRepository.findById(cursoId)
+                .orElseThrow(() -> new RuntimeException("Curso no encontrado con ID: " + cursoId));
+
+        // Crear la nueva sesión
+        Sesion nuevaSesion = new Sesion(nombre, curso);
+        return sesionRepository.save(nuevaSesion);
+    }
+
+    // Eliminar sesión por ID
     public void deleteSesion(Long id) {
         sesionRepository.deleteById(id);
     }

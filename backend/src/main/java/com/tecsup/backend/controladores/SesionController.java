@@ -32,8 +32,8 @@ public class SesionController {
 
     // Crear nueva sesión
     @PostMapping
-    public Sesion crearSesion(@RequestParam String nombre, @RequestParam long tiempoEnMilisegundos, @RequestParam Long cursoId) {
-        return sesionService.crearSesion(nombre, tiempoEnMilisegundos, cursoId);
+    public Sesion crearSesion(@RequestParam String nombre, @RequestParam Long cursoId) {
+        return sesionService.crearSesion(nombre, cursoId);
     }
 
     // Eliminar sesión por id

@@ -4,7 +4,7 @@ import './Profile.css';
 const Profile = () => {
   const [userData, setUserData] = useState({
     fullName: 'Genesis Lopez',
-    birthDate: '2009-09-03',
+    birthDate: '2009-03-03',
     email: 'genesis@email.com',
     password: '********',
     role: 'Estudiante',

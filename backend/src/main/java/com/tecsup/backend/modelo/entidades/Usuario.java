@@ -1,6 +1,8 @@
 package com.tecsup.backend.modelo.entidades;
+
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -27,6 +29,10 @@ public class Usuario {
 
     @Column
     private String provider; // Indica si el usuario se registró con Google, etc.
+
+    // Relación con Puntaje
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Puntaje> puntajes;
 
     // Getters y Setters
     public Long getId() {
@@ -83,5 +89,13 @@ public class Usuario {
 
     public void setProvider(String provider) {
         this.provider = provider;
+    }
+
+    public List<Puntaje> getPuntajes() {
+        return puntajes;
+    }
+
+    public void setPuntajes(List<Puntaje> puntajes) {
+        this.puntajes = puntajes;
     }
 }

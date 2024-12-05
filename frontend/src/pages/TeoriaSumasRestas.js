@@ -24,7 +24,7 @@ function TeoriaSumasRestas() {
                     <img src="https://i.ytimg.com/vi/bmlYe14CoII/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGH8gEygUMA8=&rs=AOn4CLD5jMKyj3BijA9z6mM8RHyCc8FgEg" alt="Suma" />
                 </div>
             ),
-            video: "https://www.youtube.com/embed/oexd_Dfic_Q", // URL de embebido
+            video: "https://www.youtube.com/embed/oexd_Dfic_Q", 
             generarOperacion: () => {
                 const num1 = numeros[Math.floor(Math.random() * numeros.length)];
                 const num2 = numeros[Math.floor(Math.random() * numeros.length)];
@@ -54,7 +54,7 @@ function TeoriaSumasRestas() {
                     </div>
                 </>
             ),
-            video: "https://www.youtube.com/embed/42vjqtleG9E", // URL de embebido
+            video: "https://www.youtube.com/embed/42vjqtleG9E", 
             generarOperacion: () => {
                 let num1, num2, resultado;
                 do {

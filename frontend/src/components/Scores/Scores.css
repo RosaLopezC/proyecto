@@ -1,30 +1,98 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #8a2be2, #cfa9f3);
+  color: white;
+}
+
 .scores-container {
-    padding: 20px;
-    border: 1px solid #ddd;
-    background-color: #f9f9f9;
-    margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #a33ce4;
+  color: white;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+}
+
+.score-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  background-color: #8a2be2;
+  border-radius: 10px;
+  font-size: 1.2em;
+}
+
+.score-item.completed {
+  background-color: #6a1b9a;
+}
+
+.score-image {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.score-info {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.scores-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .scores-container {
+    width: 95%;
   }
-  
+
   .score-item {
-    display: flex;
-    align-items: center;
     padding: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 10px;
-    background-color: #e0e0e0;
+    font-size: 1em;
   }
-  
-  .score-item.completed {
-    background-color: #d4edda;
+
+  .score-image {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
   }
-  
+
+  .scores-container h2 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 480px) {
+  .scores-container {
+    width: 100%;
+    margin: 10px auto;
+  }
+
+  .score-item {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+
   .score-image {
     width: 50px;
     height: 50px;
     margin-right: 10px;
   }
-  
-  .score-info {
-    display: flex;
-    flex-direction: column;
+
+  .scores-container h2 {
+    font-size: 1.5em;
   }
+}

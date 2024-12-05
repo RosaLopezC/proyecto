@@ -71,6 +71,7 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: black; /* Asegura que el texto de los subniveles sea negro */
 }
 
 .sublevel-item:hover {
@@ -95,6 +96,7 @@
     border: 1px solid #ddd;
     outline: none;
     font-size: 14px;
+    color: black; /* Asegura que el texto del input sea negro */
 }
 
 .search-container button {
@@ -158,6 +160,7 @@
     flex-direction: column;
     gap: 10px;
     font-size: 14px;
+    color: black; /* Asegura que el texto de los temas vistos sea negro */
 }
 
 .topic-color-0 { background-color: #ff634765; }
@@ -175,6 +178,7 @@
     border-radius: 5px;
     background-color: #f0f0f0;
     text-align: center;
+    color: black; /* Asegura que el texto de los cuadros de progreso y puntuación sea negro */
 }
 
 .progress-box {
@@ -217,6 +221,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    border: none; /* Elimina el borde alrededor del icono */
 }
 
 .profile-menu {
@@ -238,8 +243,17 @@
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    color: black; /* Asegura que el texto del menú de perfil sea negro */
 }
 
 .profile-menu-item:hover {
     background-color: #f0f0f0;
+}
+
+/* Contorno de arcoíris para las tarjetas */
+.card {
+    border: 5px solid transparent;
+    border-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+    border-image-slice: 1;
+    border-radius: 10px; /* Bordes redondeados para las tarjetas */
 }

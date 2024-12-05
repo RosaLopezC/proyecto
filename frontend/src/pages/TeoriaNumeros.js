@@ -20,9 +20,10 @@ function TeoriaNumeros() {
                 <div className="teoria-box par-impar">
                     <h4>Teoría: Números Pares e Impares</h4>
                     <p>Los números pares son aquellos que se pueden dividir exactamente entre 2, como 2, 4, 6, 8, 10. Los números impares no se pueden dividir exactamente entre 2, como 1, 3, 5, 7, 9.</p>
-                    <img src="https://via.placeholder.com/150x150/8a2be2/ffffff?text=Pares+e+Impares" alt="Pares e Impares" />
+                    <img src="https://i.pinimg.com/736x/d2/c9/05/d2c905b3b8202bd9afb28cb2d8860f47.jpg" alt="Pares e Impares" />
                 </div>
             ),
+            video: "https://www.youtube.com/embed/M4ew1mz2UV8",
             generarNumero: () => {
                 const numero = numeros[Math.floor(Math.random() * numeros.length)];
                 setNumeroActual(numero);
@@ -38,45 +39,28 @@ function TeoriaNumeros() {
             }
         },
         {
-            nombre: 'Encuentra el número mayor',
-            instrucciones: 'Selecciona el número mayor entre los dos.',
+            nombre: 'Encuentra el número mayor y menor',
+            instrucciones: 'Selecciona el número mayor y menor entre los dos.',
             teoria: (
-                <div className="teoria-box mayor">
-                    <h4>Teoría: Números Mayores</h4>
-                    <p>Para encontrar el número mayor entre dos números, simplemente compáralos. El número más grande es el mayor.</p>
-                    <img src="https://via.placeholder.com/150x150/ff6347/ffffff?text=Mayor" alt="Mayor" />
-                </div>
+                <>
+                    <div className="teoria-box mayor">
+                        <h4>Teoría: Números Mayores</h4>
+                        <p>Para encontrar el número mayor entre dos números, simplemente compáralos. El número más grande es el mayor.</p>
+                        <img src="https://i.ytimg.com/vi/v67X2aonkU4/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCfPZBehX2mlOEdEtz0XUpOFKbBDA" alt="Mayor" />
+                    </div>
+                    <div className="teoria-box menor">
+                        <h4>Teoría: Números Menores</h4>
+                        <p>Para encontrar el número menor entre dos números, simplemente compáralos. El número más pequeño es el menor.</p>
+                        <img src="https://i.ytimg.com/vi/Rxj_0DsQzk8/mqdefault.jpg" alt="Menor" />
+                    </div>
+                </>
             ),
+            video: "https://www.youtube.com/embed/2-T2kAO19Oc",
             generarNumero: () => {
                 const num1 = numeros[Math.floor(Math.random() * numeros.length)];
                 const num2 = numeros[Math.floor(Math.random() * numeros.length)];
                 setNumeroActual([num1, num2]);
                 setRespuestaCorrecta(num1 > num2 ? num1 : num2);
-            },
-            verificarRespuesta: (respuesta) => {
-                if (respuesta === respuestaCorrecta) {
-                    setPuntaje((prev) => prev + 1);
-                } else {
-                    setVidas((prev) => prev - 1);
-                }
-                juegos[juegoActual].generarNumero();
-            }
-        },
-        {
-            nombre: 'Encuentra el número menor',
-            instrucciones: 'Selecciona el número menor entre los dos.',
-            teoria: (
-                <div className="teoria-box menor">
-                    <h4>Teoría: Números Menores</h4>
-                    <p>Para encontrar el número menor entre dos números, simplemente compáralos. El número más pequeño es el menor.</p>
-                    <img src="https://via.placeholder.com/150x150/4b0082/ffffff?text=Menor" alt="Menor" />
-                </div>
-            ),
-            generarNumero: () => {
-                const num1 = numeros[Math.floor(Math.random() * numeros.length)];
-                const num2 = numeros[Math.floor(Math.random() * numeros.length)];
-                setNumeroActual([num1, num2]);
-                setRespuestaCorrecta(num1 < num2 ? num1 : num2);
             },
             verificarRespuesta: (respuesta) => {
                 if (respuesta === respuestaCorrecta) {
@@ -121,24 +105,24 @@ function TeoriaNumeros() {
                     {juegos.map((juego, index) => (
                         <div key={index} className="teoria-item">
                             {juego.teoria}
+                            <div className="video-container">
+                                <h3>¡Mira este video para aprender más! 📺</h3>
+                                <iframe
+                                    width="560"
+                                    height="315"
+                                    src={juego.video}
+                                    title="YouTube video player"
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
                         </div>
                     ))}
-                    <div className="video-container">
-                        <h3>¡Mira este video para aprender más! 📺</h3>
-                        <iframe
-                            width="560"
-                            height="315"
-                            src="https://www.youtube.com/embed/M4ew1mz2UV8"
-                            title="YouTube video player"
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                        <div className="practicar-button-container">
-                            <button className="practicar-button" onClick={() => setVideoVisto(true)}>
-                                A Practicar 🎮
-                            </button>
-                        </div>
+                    <div className="practicar-button-container">
+                        <button className="practicar-button" onClick={() => setVideoVisto(true)}>
+                            A Practicar 🎮
+                        </button>
                     </div>
                 </div>
             )}

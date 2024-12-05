@@ -10,12 +10,13 @@ function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState(''); // Nuevo estado para el apellido
     const [fechaNacimiento, setFechaNacimiento] = useState('');
+
     const handleGoogleLogin = () => {
         // Redirige al endpoint OAuth2 configurado en Spring Boot
         window.location.href = "http://localhost:8080/oauth2/authorization/google";
     };
-
 
     const handleLogin = async () => {
         try {
@@ -39,6 +40,7 @@ function Login() {
         try {
             const response = await axios.post("http://localhost:8080/api/auth/register", {
                 nombre: nombre,
+                apellido: apellido, // Nuevo campo de apellido
                 email: email,
                 fechaNacimiento: fechaNacimiento, // Formato: YYYY-MM-DD
                 password: password
@@ -55,7 +57,6 @@ function Login() {
             alert("Error al registrar el usuario. Verifica los datos ingresados.");
         }
     };
-
 
     return (
         <div className="login-wrapper">
@@ -107,9 +108,18 @@ function Login() {
                                 <FaUser className="icon"/>
                                 <input
                                     type="text"
-                                    placeholder="Nombre completo"
+                                    placeholder="Nombre"
                                     value={nombre}
                                     onChange={(e) => setNombre(e.target.value)}
+                                />
+                            </div>
+                            <div className="input-group">
+                                <FaUser className="icon"/>
+                                <input
+                                    type="text"
+                                    placeholder="Apellido"
+                                    value={apellido}
+                                    onChange={(e) => setApellido(e.target.value)}
                                 />
                             </div>
                             <div className="input-group">

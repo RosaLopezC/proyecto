@@ -66,7 +66,7 @@
 
 .teoria-box img {
     width: 100%;
-    max-width: 150px;
+    max-width: 350px;
     border-radius: 8px;
     margin-top: 10px;
 }
@@ -129,6 +129,12 @@
     color: #8a2be2;
     font-size: 1.8em;
     margin-bottom: 15px;
+}
+
+.juego-container p {
+    color: black; /* Asegura que el texto de las vidas y el puntaje sea negro */
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 .jugar-button {

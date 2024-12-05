@@ -54,7 +54,6 @@ body, html {
   color: white;
 }
 
-/* Media Queries para Responsive Design */
 @media (max-width: 768px) {
   .scores-container {
     width: 95%;

@@ -45,7 +45,7 @@ function TeoriaDivision() {
             setPuntaje((prev) => prev + 1);
             setRespuestaCorrecta(true);
         } else {
-            setVidas((prev) => prev - 1);
+            setVidas((prev) => Math.max(prev - 1, 0)); // Aseguramos que las vidas no bajen de 0
             setRespuestaCorrecta(false);
         }
     };

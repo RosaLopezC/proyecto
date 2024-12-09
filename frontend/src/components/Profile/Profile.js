@@ -3,9 +3,9 @@ import './Profile.css';
 
 const Profile = () => {
   const [userData, setUserData] = useState({
-    fullName: 'John Doe',
-    birthDate: '1990-01-01',
-    email: 'john.doe@example.com',
+    fullName: 'Genesis Lopez',
+    birthDate: '2009-03-03',
+    email: 'genesis@email.com',
     password: '********',
     role: 'Estudiante',
     image: require('../../assets/iconde.png'),

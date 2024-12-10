@@ -16,6 +16,12 @@ public class Sesion {
     @JoinColumn(name = "curso_id", nullable = false)  // Relación con Curso (clave foránea)
     private Curso curso;
 
+    @Column(nullable = false)
+    private String imagen; // Ruta de la imagen (URL relativa o absoluta)
+
+    @Column(nullable = false)
+    private String ruta; // Ruta del archivo de juego (para navegación)
+
     // Constructor por defecto
     public Sesion() {
     }
@@ -24,6 +30,9 @@ public class Sesion {
     public Sesion(String nombre, Curso curso) {
         this.nombre = nombre;
         this.curso = curso;
+        this.imagen = imagen;
+        this.ruta = ruta;
+
     }
 
     // Getters y setters
@@ -49,5 +58,18 @@ public class Sesion {
 
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+    public String getImagen() {
+        return imagen;
+    }
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getRuta() {
+        return ruta;
+    }
+    public void setRuta(String ruta) {
+        this.ruta = ruta;
     }
 }

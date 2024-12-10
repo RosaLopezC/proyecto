@@ -12,30 +12,24 @@ function Menu() {
     const [sublevels, setSublevels] = useState({});
     const [selectedGrado, setSelectedGrado] = useState(null);
     const [cursos, setCursos] = useState([]); // Cursos dinámicos
-
-    const temas = [
-        { titulo: 'Números', imagen: require('../assets/numeros.jpeg'), ruta: '/teoria-numeros' },
-        { titulo: 'Sumas y Restas', imagen: require('../assets/sumas_restas.jpeg'), ruta: '/teoria-sumas-restas' },
-        { titulo: 'Secuencias', imagen: require('../assets/secuencias.jpeg'), ruta: '/teoria-secuencias' },
-        { titulo: 'Geometría', imagen: require('../assets/geometria.jpeg'), ruta: '/teoria-geometria' },
-        { titulo: 'Fracciones', imagen: require('../assets/fraccion.jpeg'), ruta: '/teoria-fracciones' },
-        { titulo: 'División', imagen: require('../assets/division.jpeg'), ruta: '/teoria-division' },
-    ];
-
-    const temasVistos = [
-        { titulo: 'Números', avance: '50%', puntos: '150' },
-        { titulo: 'Sumas y Restas', avance: '75%', puntos: '200' },
-        { titulo: 'Secuencias', avance: '25%', puntos: '50' },
-    ];
+    const [sesiones, setSesiones] = useState([]); // Sesiones dinámicas desde la API
+    const [sesionesFiltradas, setSesionesFiltradas] = useState([]); // Sesiones filtradas
 
     const handleLogout = () => {
         console.log('Cerrando sesión...');
         navigate('/');
     };
 
-    const userProfileImage = require('../assets/iconde.png');
+    const userProfileImage = '/assets/iconde.png';
 
-    // Obtener subniveles dinámicamente desde la API
+    // Datos de progreso y puntaje
+    const temasVistos = [
+        { titulo: 'Números', avance: '50%', puntos: '150' },
+        { titulo: 'Sumas y Restas', avance: '75%', puntos: '200' },
+        { titulo: 'Secuencias', avance: '25%', puntos: '50' },
+    ];
+
+    // Obtener grados dinámicos desde la API
     useEffect(() => {
         const fetchGrados = async () => {
             try {
@@ -58,10 +52,35 @@ function Menu() {
         fetchGrados();
     }, []);
 
-    // Obtener cursos por grado
+    // Obtener sesiones dinámicas desde la API y eliminar duplicados
+    useEffect(() => {
+        const fetchSesiones = async () => {
+            try {
+                const response = await axios.get('http://localhost:8080/api/sesiones');
+                const sesionesSinDuplicados = eliminarDuplicados(response.data, 'id');
+                setSesiones(sesionesSinDuplicados);
+                setSesionesFiltradas(sesionesSinDuplicados);
+            } catch (error) {
+                console.error('Error al obtener las sesiones:', error);
+            }
+        };
+
+        fetchSesiones();
+    }, []);
+
+    // Función para eliminar duplicados por una clave específica
+    const eliminarDuplicados = (array, key) => {
+        const uniqueSet = new Set();
+        return array.filter((item) => {
+            const isDuplicate = uniqueSet.has(item[key]);
+            uniqueSet.add(item[key]);
+            return !isDuplicate;
+        });
+    };
+
     const fetchCursosPorGrado = async (gradoId) => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/cursos`);
+            const response = await axios.get('http://localhost:8080/api/cursos');
             const cursosFiltrados = response.data.filter(curso => curso.grado.id === gradoId);
             setCursos(cursosFiltrados);
         } catch (error) {
@@ -78,11 +97,28 @@ function Menu() {
         fetchCursosPorGrado(grado.id);
     };
 
+    const handleCursoClick = (cursoId) => {
+        const filtradas = sesiones.filter(sesion => sesion.curso.id === cursoId);
+        setSesionesFiltradas(filtradas);
+    };
+
+    const handleQuitarFiltros = () => {
+        setSesionesFiltradas(sesiones); // Restablece las sesiones originales
+        setSelectedGrado(null); // Limpia selección de grado
+        setCursos([]); // Limpia cursos
+    };
+
     return (
         <div className="menu-container">
             {/* Encabezado */}
             <header className="menu-header">
-                <img src={require('../assets/logo.png')} alt="MathPlay" className="menu-logo" />
+                <img
+                    src={require('../assets/logo.png')}
+                    alt="MathPlay"
+                    className="menu-logo"
+                    onClick={() => navigate('/menu')}
+                    style={{ cursor: 'pointer' }}
+                />
                 <div className="menu-levels">
                     {Object.keys(sublevels).map((level) => (
                         <div
@@ -129,11 +165,20 @@ function Menu() {
                 </div>
             </header>
 
-            {/* Buscador */}
-            <div className="search-container">
-                <input type="text" placeholder="Buscar..." />
-                <button>Buscar</button>
+            {/* Progreso y Puntaje */}
+            <div className="topics-viewed-container">
+                <h3>PROGRESO</h3>
+                {temasVistos.map((tema, index) => (
+                    <div key={index} className={`topic-viewed-item topic-color-${index}`}>
+                        <div className="topic-info">
+                            <div>{tema.titulo}</div>
+                            <div className="progress-box">Avance: {tema.avance} 🚀</div>
+                            <div className="score-box">Puntos: {tema.puntos} ⭐</div>
+                        </div>
+                    </div>
+                ))}
             </div>
+
 
             {/* Cursos dinámicos */}
             {selectedGrado && (
@@ -141,10 +186,17 @@ function Menu() {
                     <h3>Cursos para {selectedGrado.nombre}</h3>
                     <div className="cursos-buttons">
                         {cursos.map((curso) => (
-                            <button key={curso.id} className="curso-button">
+                            <button
+                                key={curso.id}
+                                className="curso-button"
+                                onClick={() => handleCursoClick(curso.id)}
+                            >
                                 {curso.titulo}
                             </button>
                         ))}
+                        <button className="clear-filter-button" onClick={handleQuitarFiltros}>
+                            Quitar Filtros
+                        </button>
                     </div>
                 </div>
             )}
@@ -152,21 +204,20 @@ function Menu() {
             {/* Contenido principal */}
             <div className="content-container">
                 <div className="cards-container">
-                    {temas.map((tema, index) => (
-                        <Card key={index} titulo={tema.titulo} imagen={tema.imagen} onClick={() => navigate(tema.ruta)} />
-                    ))}
-                </div>
-                <div className="topics-viewed-container">
-                    <h3>PROGRESO</h3>
-                    {temasVistos.map((tema, index) => (
-                        <div key={index} className={`topic-viewed-item topic-color-${index}`}>
-                            <div className="topic-info">
-                                <div>{tema.titulo}</div>
-                                <div className="progress-box">Avance: {tema.avance} 🚀</div>
-                                <div className="score-box">Puntos: {tema.puntos} ⭐</div>
-                            </div>
+                    {sesionesFiltradas.length > 0 ? (
+                        sesionesFiltradas.map((sesion) => (
+                            <Card
+                                key={sesion.id}
+                                titulo={sesion.nombre}
+                                imagen={`/assets/${sesion.imagen}`}
+                                onClick={() => navigate(sesion.ruta)}
+                            />
+                        ))
+                    ) : (
+                        <div className="no-content-message">
+                            No hay contenidos en este curso por el momento, vuelve más tarde.
                         </div>
-                    ))}
+                    )}
                 </div>
             </div>
         </div>
